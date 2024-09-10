@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des livres{% endblock %}
+
+{% block body %}
+    {% for book in bookList %}
+        <p>
+            <img src="{{ book.cover }}" alt="book"><br >
+            {{ book.title }}<br >
+            {{ book.author|map(a => a.name)|join(', ') }}
+        </p>
+
+        <a href="{{ path('admin_book_details', {'id' : book.id}) }}">Voir</a>
+    {% else %}
+        <p>
+            Aucun livre pour l'instant
+        </p>
+    {% endfor %}
+
+    <p>
+        {{ pagerfanta(bookList) }}
+    </p>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {% endblock %}
+
+{% block body %}
+
+    <div class='w-50 m-auto' style="">
+        <h1>Ajouter un Éditeur</h1>
+
+        {{ form_start(editorForm) }}
+            {{ form_widget(editorForm) }}
+
+            <button class="btn btn-primary">Ajouter</button>
+        {{ form_end(editorForm) }}
+    </div>
+{% endblock %}

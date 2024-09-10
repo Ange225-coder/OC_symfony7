@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Details de l'auteur{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>Auteur : </h1>
+        {% if author is not null %}
+            <div class="card mb-1 m-auto">
+                <div class="card-body">
+                    <div class="card-title d-flex justify-content-between">
+                        <h4 class="mb-1">{{ author.name }}</h4>
+                        <small class="text-muted">Identifiant : {{ author.id }}</small>
+                    </div>
+                    <div class="d-flex justify-content-between card-text">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Date de naissance : {{ author.dateOfBirth|date('d M Y') }}</li>
+                            <li class="list-group-item">Date de décès : {{ author.dateOfDeath is not null ? author.dateOfBirth|date('d M Y') : 'NEANT' }}</li>
+                        </ul>
+                        <p><small>Nationalité : {{ author.nationality }}</small></p>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div>Aucun Auteur trouvé</div>
+        {% endif %}
+    </div>
+{% endblock %}

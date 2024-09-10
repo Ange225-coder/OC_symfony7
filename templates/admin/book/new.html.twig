@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {% endblock %}
+
+{% block body %}
+
+    <div class='w-50 m-auto' style="">
+        <h1>Ajouter un nouveau livre</h1>
+
+        {{ form_start(bookForm) }}
+            {{ form_widget(bookForm) }}
+
+            <button class="btn btn-primary">Ajouter</button>
+        {{ form_end(bookForm) }}
+    </div>
+{% endblock %}

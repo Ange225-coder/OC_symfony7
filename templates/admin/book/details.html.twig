@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Details du livre {{ book.title }}{% endblock %}
+
+{% block body %}
+
+    <section>
+        <p>
+            <img src="{{ book.cover }}" alt="book.title">
+        </p>
+
+        <p>
+            ISBN: {{ book.isbn }}
+        </p>
+
+        <p>
+            {{ book.title }}
+        </p>
+
+        <p>
+            Auteur(s): {{ book.author|map(a => a.name)|join(', ') }}<br >
+            Éditeur: {{ book.editor.name }}<br >
+            {{ book.pageNumber }} pages - {{ book.editedAt|date('d M Y') }}<br >
+            Statut: {{ book.status.label }}
+        </p>
+
+        <p>
+            {# <a href="{{ path('admin_book_list') }}">Retour à la liste</a> #}
+            {# link above can be used, but i prefer the way below #}
+            <a href="#" onclick="window.history.back();">Retour à la liste</a>
+        </p>
+
+    </section>
+{% endblock %}

@@ -9,10 +9,12 @@
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Annotation\Route;
+    use Symfony\Component\Security\Http\Attribute\IsGranted;
 
     class EditorController extends AbstractController
     {
         #[Route(path: '/admin/editor/new', name: 'admin_editor_new', methods: ['GET', 'POST'])]
+        #[IsGranted('ROLE_AJOUT_DE_LIVRE')]
         public function addEditor(Request $request, EntityManagerInterface $entityManager): Response
         {
             $editor = new Editor();

@@ -18,6 +18,7 @@
     class BookController extends AbstractController
     {
         #[Route(path: '/new', name: 'admin_book_new', methods: ['GET', 'POST'])]
+        #[IsGranted('ROLE_AJOUT_DE_LIVRE')]
         public  function addBook (Request $request, EntityManagerInterface $entityManager): Response
         {
             $book = new Book();
@@ -58,6 +59,10 @@
         public function bookDetails(int $id, EntityManagerInterface $entityManager): Response
         {
             $book = $entityManager->getRepository(Book::class)->find($id);
+
+            if ($book !== null) {
+                $this->denyAccessUnlessGranted('ROLE_EDITION_DE_LIVRE');
+            }
 
             return $this->render('admin/book/details.html.twig', [
                 'book' => $book,

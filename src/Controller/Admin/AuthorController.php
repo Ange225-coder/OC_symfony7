@@ -9,13 +9,20 @@
     use App\Forms\AuthorType;
     use Symfony\Component\Routing\Annotation\Route;
     use Doctrine\ORM\EntityManagerInterface;
+    use Symfony\Component\Security\Http\Attribute\IsGranted;
 
     #[Route(path: '/admin/author')]
     class AuthorController extends AbstractController
     {
+        //#[IsGranted('ROLE_ADMIN')]
+        #[IsGranted('ROLE_AJOUT_DE_LIVRE')]
         #[Route(path: '/new', name: 'admin_author_new')]
         public function new(Request $request, EntityManagerInterface $entityManager): Response
         {
+
+            //has same role with #[IsGranted('ROLE_ADMIN')
+            //$this->denyAccessUnlessGranted('ROLE_ADMIN');
+
             $author = new Author();
 
             $formType = $this->createForm(AuthorType::class, $author);
@@ -35,7 +42,7 @@
         }
 
 
-
+        #[isGranted('IS_AUTHENTICATED')]
         #[Route(path: '/list', name: 'admin_author_list', methods: ['GET'])]
         public function list(EntityManagerInterface $entityManager): Response
         {
@@ -52,6 +59,10 @@
         public function details(int $id, EntityManagerInterface $entityManager): Response
         {
             $author = $entityManager->getRepository(Author::class)->find($id);
+
+            if($author !== null) {
+                $this->denyAccessUnlessGranted('ROLE_EDITION_DE_LIVRE');
+            }
 
             return $this->render('admin/author/details.html.twig', [
                 'author' => $author,
